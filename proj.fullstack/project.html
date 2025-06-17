@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    #searchContainer {
+      margin-bottom: 20px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      font-size: 16px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+    .results {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="searchContainer">
+    <input type="text" id="searchInput" placeholder="Search for products...">
+    <button onclick="performSearch()">Search</button>
+    <div class="error" id="errorMessage"></div>
+  </div>
+
+  <div class="results" id="resultsContainer"></div>
+
+  <script>
+    const products = [
+      "Apple iPhone 14",
+      "Samsung Galaxy S22",
+      "Sony WH-1000XM5",
+      "Dell XPS 13",
+      "MacBook Pro",
+      "iPad Air",
+      "Google Pixel 7"
+    ];
+
+    function performSearch() {
+      const query = document.getElementById("searchInput").value.trim();
+      const errorMessage = document.getElementById("errorMessage");
+      const resultsContainer = document.getElementById("resultsContainer");
+
+      errorMessage.textContent = '';
+      resultsContainer.innerHTML = '';
+
+      if (query === '') {
+        errorMessage.textContent = "Please enter a product name to search.";
+        return;
+      }
+
+      const results = products.filter(product =>
+        product.toLowerCase().includes(query.toLowerCase())
+      );
+
+      if (results.length > 0) {
+        results.forEach(item => {
+          const div = document.createElement("div");
+          div.textContent = item;
+          resultsContainer.appendChild(div);
+        });
+      } else {
+        resultsContainer.textContent = "No products found.";
+      }
+    }
+  </script>
+
+</body>
+</html>
